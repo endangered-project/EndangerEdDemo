@@ -4,10 +4,9 @@ using EndangerEdDemo.Game.Graphics;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
+using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.UserInterface;
-using osuTK;
 using osuTK.Graphics;
 
 namespace EndangerEdDemo.Game.Screen
@@ -16,14 +15,15 @@ namespace EndangerEdDemo.Game.Screen
     {
         private BasicButton startButton;
         private BasicButton leaderboardButton;
-        private Container profileContainer;
+        private Container profilePictureContainer;
+        private Container profilePicture;
         private AudioVisualizer audioVisualizer;
 
         [Resolved]
         private AudioPlayer audioPlayer { get; set; }
 
         [BackgroundDependencyLoader]
-        private void load()
+        private void load(TextureStore textureStore)
         {
             InternalChildren = new Drawable[]
             {
@@ -92,15 +92,15 @@ namespace EndangerEdDemo.Game.Screen
                                         Y = 200f,
                                         Width = 100,
                                         Height = 50,
-                                        Margin = new MarginPadding { Right = 100 }
+                                        Margin = new MarginPadding { Right = 120 }
                                     },
                                     {
-                                        profileContainer = new Container()
+                                        profilePictureContainer = new Container()
                                         {
                                             Anchor = Anchor.Centre,
                                             Origin = Anchor.Centre,
                                             RelativeSizeAxes = Axes.Both,
-                                            Padding = new MarginPadding { Right = 100 },
+                                            Padding = new MarginPadding { Right = 120 },
                                             Children = new Drawable[]
                                             {
                                                 audioVisualizer = new AudioVisualizer
@@ -111,13 +111,22 @@ namespace EndangerEdDemo.Game.Screen
                                                     Height = 75,
                                                     Alpha = 0.5f
                                                 },
-                                                new Circle
+                                                profilePicture = new Container
                                                 {
                                                     Anchor = Anchor.Centre,
                                                     Origin = Anchor.Centre,
-                                                    Colour = Color4.ForestGreen,
                                                     Width = 75,
                                                     Height = 75,
+                                                    CornerRadius = 100,
+                                                    Child = new Sprite
+                                                    {
+                                                        Anchor = Anchor.Centre,
+                                                        Origin = Anchor.Centre,
+                                                        Colour = Color4.OrangeRed,
+                                                        RelativeSizeAxes = Axes.Both,
+                                                        Texture = textureStore.Get("fuji.png"),
+                                                        FillMode = FillMode.Fill
+                                                    }
                                                 }
                                             }
                                         }
@@ -145,6 +154,12 @@ namespace EndangerEdDemo.Game.Screen
         {
             base.LoadComplete();
             audioVisualizer.AddAmplitudeSource(audioPlayer.Track.Value);
+        }
+
+        protected override void Update()
+        {
+            base.Update();
+            profilePicture.Rotation += audioPlayer.Track.Value.CurrentAmplitudes.Average * 1.5f;
         }
     }
 }

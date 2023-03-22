@@ -63,8 +63,8 @@ public partial class AudioPlayer : CompositeDrawable
     {
         if (!Track.Value.IsRunning)
         {
-            Track.Value.StopAsync().WaitSafely();
-            Logger.Log("🎵 Paused track");
+            Track.Value.StartAsync().WaitSafely();
+            Logger.Log("🎵 Resumed track");
         }
     }
 
@@ -75,8 +75,8 @@ public partial class AudioPlayer : CompositeDrawable
     {
         if (Track.Value.IsRunning)
         {
-            Track.Value.StartAsync().WaitSafely();
-            Logger.Log("🎵 Resumed track");
+            Track.Value.StopAsync().WaitSafely();
+            Logger.Log("🎵 Paused track");
         }
     }
 

@@ -1,3 +1,4 @@
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -19,6 +20,8 @@ namespace EndangerEdDemo.Game
         private DependencyContainer dependencies;
 
         private AudioManager audioManager;
+
+        private EndangerEdDemoTextureStore textureStore;
 
         protected EndangerEdDemoGameBase()
         {
@@ -60,8 +63,9 @@ namespace EndangerEdDemo.Game
             ResourceStore<byte[]> trackResourceStore = new ResourceStore<byte[]>();
             trackResourceStore.AddStore(new NamespacedResourceStore<byte[]>(Resources, "Tracks"));
 
-            // dependencies.Cache(audioManager = new AudioManager(Host.AudioThread, new NamespacedResourceStore<byte[]>(Resources, "Tracks"), new NamespacedResourceStore<byte[]>(Resources, "Samples")));
-            // dependencies.CacheAs(this);
+            dependencies.Cache(textureStore = new EndangerEdDemoTextureStore(Host.Renderer, Host.CreateTextureLoaderStore(new NamespacedResourceStore<byte[]>(Resources, "Textures"))));
+            dependencies.Cache(audioManager = new AudioManager(Host.AudioThread, trackResourceStore, new NamespacedResourceStore<byte[]>(Resources, "Samples")));
+            dependencies.CacheAs(this);
         }
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) => dependencies = new DependencyContainer(base.CreateChildDependencies(parent));

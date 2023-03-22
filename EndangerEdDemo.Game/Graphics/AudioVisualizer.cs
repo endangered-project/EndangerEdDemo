@@ -35,7 +35,7 @@ public partial class AudioVisualizer : Drawable
     /// <summary>
     /// The number of bars in one rotation of the visualiser.
     /// </summary>
-    private const int bars_per_visualiser = 150;
+    private const int bars_per_visualiser = 125;
 
     /// <summary>
     /// How many times we should stretch around the circumference (overlapping overselves).
