@@ -1,5 +1,4 @@
 using osu.Framework.Allocation;
-using osu.Framework.Audio.Track;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Video;
 
@@ -7,11 +6,10 @@ namespace EndangerEdDemo.Game.Screen;
 
 public partial class BackgroundScreen : EndangerEdDemoScreen
 {
-    private Track track;
     private Video video;
 
     [BackgroundDependencyLoader]
-    private void load(ITrackStore tracks)
+    private void load()
     {
         InternalChildren = new Drawable[]
         {
@@ -25,13 +23,5 @@ public partial class BackgroundScreen : EndangerEdDemoScreen
                 IsPlaying = true
             }
         };
-        track = tracks.Get("matsuri.mp3");
-    }
-
-    protected override void LoadComplete()
-    {
-        base.LoadComplete();
-        track.Looping = true;
-        track.Start();
     }
 }

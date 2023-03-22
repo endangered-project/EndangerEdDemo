@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Screen;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
@@ -16,14 +17,17 @@ namespace EndangerEdDemo.Game
 
         private EndangerEdDemoScreenStack screenStack;
 
+        private AudioPlayer audioPlayer;
+
+        private Container overlayContent;
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
         [BackgroundDependencyLoader]
         private void load()
         {
-            // Add your top-level game components here.
-            // A screen stack and sample screen has been provided for convenience, but you can replace it if you don't want to use screens.
+            dependencies.CacheAs(this);
             Add(screenStack = new EndangerEdDemoScreenStack());
         }
 
@@ -44,11 +48,20 @@ namespace EndangerEdDemo.Game
                         }
                     }
                 },
+                new Container
+                {
+                    RelativeSizeAxes = Axes.Both,
+                    Children = new Drawable[]
+                    {
+                        overlayContent = new Container { RelativeSizeAxes = Axes.Both }
+                    }
+                }
             });
 
             dependencies.CacheAs(screenStack);
+            loadComponentSingleFile(audioPlayer = new AudioPlayer("matsuri.mp3", true), overlayContent.Add, true);
 
-            screenStack.Push(new WarningScreen(new MainMenuScreen()));
+            screenStack.Push(new WarningScreen(new Screen.MainMenuScreen()));
         }
 
         private Task asyncLoadStream;
@@ -83,7 +96,7 @@ namespace EndangerEdDemo.Game
 
                     try
                     {
-                        Logger.Log($"💉Loading {component}...");
+                        Logger.Log($"💉 Loading {component}...");
 
                         // Since this is running in a separate thread, it is possible for maisimGame to be disposed after LoadComponentAsync has been called
                         // throwing an exception. To avoid this, the call is scheduled on the update thread, which does not run if IsDisposed = true
@@ -103,7 +116,7 @@ namespace EndangerEdDemo.Game
 
                         await task.ConfigureAwait(false);
 
-                        Logger.Log($"💉Loaded {component}!");
+                        Logger.Log($"💉 Loaded {component}!");
                     }
                     catch (OperationCanceledException)
                     {
