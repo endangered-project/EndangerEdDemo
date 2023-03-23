@@ -21,6 +21,7 @@ namespace EndangerEdDemo.Game.Screen
         private Container profilePictureContainer;
         private Container profilePicture;
         private AudioVisualizer audioVisualizer;
+        private Container knowledgeBaseContainer;
 
         [Resolved]
         private AudioPlayer audioPlayer { get; set; }
@@ -41,9 +42,38 @@ namespace EndangerEdDemo.Game.Screen
                         {
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
-                            Text = "EndangerEd Demo",
-                            Font = EndangerEdDemoFont.GetFont(size: 100f),
+                            Text = "EndangerEd",
+                            Font = EndangerEdDemoFont.GetFont(typeface: EndangerEdDemoFont.Typeface.Comfortaa, size: 100, weight: EndangerEdDemoFont.FontWeight.Bold),
                             Y = -200f
+                        },
+                        knowledgeBaseContainer = new Container
+                        {
+                            Anchor = Anchor.Centre,
+                            Origin = Anchor.Centre,
+                            Y = -130f,
+                            X = 230f,
+                            Size = new Vector2(150f),
+                            Rotation = 315f,
+                            Children = new Drawable[]
+                            {
+                                new SpriteIcon()
+                                {
+                                    Anchor = Anchor.Centre,
+                                    Origin = Anchor.Centre,
+                                    RelativeSizeAxes = Axes.Both,
+                                    Size = new Vector2(0.5f),
+                                    Icon = FontAwesome.Solid.BookOpen,
+                                    Colour = Color4.White
+                                },
+                                new SpriteText()
+                                {
+                                    Anchor = Anchor.Centre,
+                                    Origin = Anchor.Centre,
+                                    Text = "Knowledge base",
+                                    Font = EndangerEdDemoFont.GetFont(typeface: EndangerEdDemoFont.Typeface.Comfortaa, size: 20, weight: EndangerEdDemoFont.FontWeight.Bold),
+                                    Y = 40f
+                                }
+                            }
                         },
                         new Container
                         {
@@ -171,12 +201,7 @@ namespace EndangerEdDemo.Game.Screen
         {
             base.LoadComplete();
             audioVisualizer.AddAmplitudeSource(audioPlayer.Track.Value);
-        }
-
-        protected override void Update()
-        {
-            base.Update();
-            profilePicture.Rotation += audioPlayer.Track.Value.CurrentAmplitudes.Average * 1.5f;
+            knowledgeBaseContainer.ScaleTo(new Vector2(1.2f), 500, Easing.OutSine).Then().ScaleTo(new Vector2(1f), 500, Easing.OutSine).Loop();
         }
     }
 }
