@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Graphics;
+using EndangerEdDemo.Game.Graphics.Components;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -82,13 +83,10 @@ namespace EndangerEdDemo.Game.Screen
                                 Direction = FillDirection.Horizontal,
                                 Children = new List<Drawable>()
                                 {
-                                    new BasicButton
+                                    new EndangerEdDemoButton("Login")
                                     {
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
-                                        Text = "Login",
-                                        Colour = Color4.GreenYellow,
-                                        BackgroundColour = Color4.Brown,
                                         Y = 200f,
                                         Width = 100,
                                         Height = 50,
@@ -122,7 +120,7 @@ namespace EndangerEdDemo.Game.Screen
                                                     {
                                                         Anchor = Anchor.Centre,
                                                         Origin = Anchor.Centre,
-                                                        Colour = Color4.OrangeRed,
+                                                        Colour = Color4.DarkGreen,
                                                         RelativeSizeAxes = Axes.Both,
                                                         Texture = textureStore.Get("fuji.png"),
                                                         FillMode = FillMode.Fill
@@ -131,13 +129,10 @@ namespace EndangerEdDemo.Game.Screen
                                             }
                                         }
                                     },
-                                    new BasicButton
+                                    new EndangerEdDemoButton("Sign up")
                                     {
                                         Anchor = Anchor.Centre,
                                         Origin = Anchor.Centre,
-                                        Text = "Sign up",
-                                        Colour = Color4.GreenYellow,
-                                        BackgroundColour = Color4.Brown,
                                         Y = 250f,
                                         Width = 100,
                                         Height = 50

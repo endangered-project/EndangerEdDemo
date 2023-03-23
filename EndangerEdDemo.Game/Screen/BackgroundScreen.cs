@@ -1,5 +1,6 @@
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.Video;
@@ -24,15 +25,13 @@ public partial class BackgroundScreen : EndangerEdDemoScreen
                 RelativeSizeAxes = Axes.Both,
                 Texture = store.Get("background.jpg")
             },
-            video = new Video("../../../../EndangerEdDemo.Resources/Videos/matsuri.mp4")
+            new Box()
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
-                FillMode = FillMode.Stretch,
                 RelativeSizeAxes = Axes.Both,
-                Loop = true,
-                IsPlaying = true,
-                Alpha = 0.5f
+                Colour = Colour4.Black,
+                Alpha = 0.4f
             }
         };
     }
