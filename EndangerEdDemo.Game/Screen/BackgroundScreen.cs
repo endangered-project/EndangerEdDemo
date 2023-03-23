@@ -21,7 +21,7 @@ public partial class BackgroundScreen : EndangerEdDemoScreen
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
-                FillMode = FillMode.Fill,
+                FillMode = FillMode.Stretch,
                 RelativeSizeAxes = Axes.Both,
                 Texture = store.Get("background.jpg")
             },

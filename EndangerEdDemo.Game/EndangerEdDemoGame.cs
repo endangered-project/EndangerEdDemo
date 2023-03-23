@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using EndangerEdDemo.Game.Audio;
+using EndangerEdDemo.Game.Graphics.Components;
 using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -21,6 +23,12 @@ namespace EndangerEdDemo.Game
 
         private Container overlayContent;
 
+        private Container leftFloatingOverlayContent;
+
+        private SessionStore sessionStore;
+
+        private SwapModeButton swapModeButton;
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -28,6 +36,7 @@ namespace EndangerEdDemo.Game
         private void load()
         {
             dependencies.CacheAs(this);
+            dependencies.CacheAs(sessionStore = new SessionStore());
             Add(screenStack = new EndangerEdDemoScreenStack());
         }
 
@@ -53,15 +62,20 @@ namespace EndangerEdDemo.Game
                     RelativeSizeAxes = Axes.Both,
                     Children = new Drawable[]
                     {
-                        overlayContent = new Container { RelativeSizeAxes = Axes.Both }
+                        overlayContent = new Container { RelativeSizeAxes = Axes.Both },
+                        leftFloatingOverlayContent = new Container { RelativeSizeAxes = Axes.Both },
                     }
                 }
             });
 
             dependencies.CacheAs(screenStack);
-            loadComponentSingleFile(audioPlayer = new AudioPlayer("matsuri.mp3", true), overlayContent.Add, true);
+            loadComponentSingleFile(audioPlayer = new AudioPlayer("dota.mp3", true), overlayContent.Add, true);
+            loadComponentSingleFile(swapModeButton = new SwapModeButton
+            {
+                Action = sessionStore.SwapScreenMode
+            }, leftFloatingOverlayContent.Add, true);
 
-            screenStack.Push(new WarningScreen(new Screen.MainMenuScreen()));
+            screenStack.gameScreenStack.Push(new WarningScreen(new MainMenuScreen()));
         }
 
         private Task asyncLoadStream;

@@ -9,7 +9,6 @@
     <EmbeddedResource Include="Tracks\**\*" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Tracks" />
     <Folder Include="Videos" />
   </ItemGroup>
 </Project>

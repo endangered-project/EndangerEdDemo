@@ -11,7 +11,7 @@ public partial class TestSceneEndangerEdDemoButton : EndangerEdDemoTestScene
 {
     public TestSceneEndangerEdDemoButton()
     {
-        Add(new EndangerEdDemoScreenStack());
+        Add(new EndangerEdDemoGameScreenStack());
         Add(new EndangerEdDemoButton("bruh")
         {
             Anchor = Anchor.Centre,

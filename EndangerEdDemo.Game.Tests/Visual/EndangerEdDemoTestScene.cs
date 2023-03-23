@@ -7,11 +7,13 @@ namespace EndangerEdDemo.Game.Tests.Visual
     {
         protected override ITestSceneTestRunner CreateRunner() => new EndangerEdDemoTestSceneTestRunner();
 
-        public new DependencyContainer Dependencies { get; set; }
+        public new DependencyContainer Dependencies { get; private set; }
 
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent)
         {
-            Dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
+            var baseDependencies = base.CreateChildDependencies(parent);
+            Dependencies = new DependencyContainer(baseDependencies);
+
             return Dependencies;
         }
 

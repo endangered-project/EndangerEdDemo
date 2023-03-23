@@ -5,9 +5,11 @@ using EndangerEdDemo.Game.Graphics.Components;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
+using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.UserInterface;
+using osuTK;
 using osuTK.Graphics;
 
 namespace EndangerEdDemo.Game.Screen
@@ -49,24 +51,18 @@ namespace EndangerEdDemo.Game.Screen
                             Origin = Anchor.Centre,
                             Children = new List<Drawable>
                             {
-                                new BasicButton
+                                new EndangerEdDemoButton("Start!")
                                 {
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
-                                    Text = "Start!",
-                                    Colour = Color4.GreenYellow,
-                                    BackgroundColour = Color4.Brown,
                                     Y = -50f,
                                     Width = 100,
                                     Height = 50
                                 },
-                                new BasicButton
+                                new EndangerEdDemoButton("Leaderboard")
                                 {
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
-                                    Text = "Leaderboard",
-                                    Colour = Color4.GreenYellow,
-                                    BackgroundColour = Color4.Brown,
                                     Y = 50f,
                                     Width = 150,
                                     Height = 50
@@ -116,14 +112,40 @@ namespace EndangerEdDemo.Game.Screen
                                                     Width = 75,
                                                     Height = 75,
                                                     CornerRadius = 100,
-                                                    Child = new Sprite
+                                                    Child = new Container()
                                                     {
                                                         Anchor = Anchor.Centre,
                                                         Origin = Anchor.Centre,
-                                                        Colour = Color4.DarkGreen,
                                                         RelativeSizeAxes = Axes.Both,
-                                                        Texture = textureStore.Get("fuji.png"),
-                                                        FillMode = FillMode.Fill
+                                                        Masking = true,
+                                                        Children = new Drawable[]
+                                                        {
+                                                            new Circle
+                                                            {
+                                                                Anchor = Anchor.Centre,
+                                                                Origin = Anchor.Centre,
+                                                                RelativeSizeAxes = Axes.Both,
+                                                                Colour = Colour4.DarkGreen,
+                                                                BorderThickness = 10,
+                                                                BorderColour = Color4.White,
+                                                                Masking = true
+                                                            },
+                                                            new Container
+                                                            {
+                                                                Anchor = Anchor.Centre,
+                                                                Origin = Anchor.Centre,
+                                                                RelativeSizeAxes = Axes.Both,
+                                                                Child = new SpriteIcon
+                                                                {
+                                                                    Anchor = Anchor.Centre,
+                                                                    Origin = Anchor.Centre,
+                                                                    RelativeSizeAxes = Axes.Both,
+                                                                    Size = new Vector2(0.5f),
+                                                                    Icon = FontAwesome.Solid.User,
+                                                                    Colour = Color4.White
+                                                                }
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }

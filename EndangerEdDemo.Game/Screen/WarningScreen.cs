@@ -20,6 +20,9 @@ public partial class WarningScreen : EndangerEdDemoScreen
 
     private const float icon_y = -100f;
 
+    [Resolved]
+    private EndangerEdDemoScreenStack screenStack { get; set; }
+
     public WarningScreen(osu.Framework.Screens.Screen nextScreen)
     {
         this.nextScreen = nextScreen;
@@ -107,7 +110,7 @@ public partial class WarningScreen : EndangerEdDemoScreen
             .Finally(next =>
             {
                 if (nextScreen != null)
-                    this.Push(nextScreen);
+                    screenStack.gameScreenStack.Push(nextScreen);
             });
     }
 }
