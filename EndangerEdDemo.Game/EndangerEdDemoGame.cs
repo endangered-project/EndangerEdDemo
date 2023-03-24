@@ -10,6 +10,8 @@ using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Logging;
 using osu.Framework.Threading;
+using MainMenuScreen = EndangerEdDemo.Game.Screen.Game.MainMenuScreen;
+using WarningScreen = EndangerEdDemo.Game.Screen.Game.WarningScreen;
 
 namespace EndangerEdDemo.Game
 {
@@ -70,12 +72,9 @@ namespace EndangerEdDemo.Game
 
             dependencies.CacheAs(screenStack);
             loadComponentSingleFile(audioPlayer = new AudioPlayer("dota.mp3", true), overlayContent.Add, true);
-            loadComponentSingleFile(swapModeButton = new SwapModeButton
-            {
-                Action = sessionStore.SwapScreenMode
-            }, leftFloatingOverlayContent.Add, true);
+            loadComponentSingleFile(swapModeButton = new SwapModeButton(), leftFloatingOverlayContent.Add, true);
 
-            screenStack.gameScreenStack.Push(new WarningScreen(new MainMenuScreen()));
+            screenStack.GameScreenStack.Push(new WarningScreen(new MainMenuScreen()));
         }
 
         private Task asyncLoadStream;

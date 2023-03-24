@@ -10,6 +10,8 @@ public class SessionStore
 {
     public Bindable<ScreenMode> ScreenMode { get; } = new Bindable<ScreenMode>(Store.ScreenMode.Normal);
 
+    public Bindable<PresentationSlideNumber> CurrentSlideNumber { get; } = new Bindable<PresentationSlideNumber>(PresentationSlideNumber.Slide0);
+
     /// <summary>
     /// Swap the current screen mode to the other one.
     /// </summary>

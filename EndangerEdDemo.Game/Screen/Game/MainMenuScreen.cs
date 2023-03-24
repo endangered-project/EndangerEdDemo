@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Graphics;
 using EndangerEdDemo.Game.Graphics.Components;
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -12,10 +13,12 @@ using osu.Framework.Graphics.UserInterface;
 using osuTK;
 using osuTK.Graphics;
 
-namespace EndangerEdDemo.Game.Screen
+namespace EndangerEdDemo.Game.Screen.Game
 {
-    public partial class MainMenuScreen : osu.Framework.Screens.Screen
+    public partial class MainMenuScreen : EndangerEdDemoGameScreen
     {
+        public override PresentationSlideNumber PresentationSlideNumber => PresentationSlideNumber.Slide1;
+
         private BasicButton startButton;
         private BasicButton leaderboardButton;
         private Container profilePictureContainer;

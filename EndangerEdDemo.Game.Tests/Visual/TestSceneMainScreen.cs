@@ -1,5 +1,6 @@
 using EndangerEdDemo.Game.Audio;
-using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Screen.Game;
+using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
 using osu.Framework.Graphics;
 using osu.Framework.Screens;
@@ -15,6 +16,9 @@ namespace EndangerEdDemo.Game.Tests.Visual
         [Cached]
         private AudioPlayer audioPlayer = new AudioPlayer("matsuri.mp3");
 
+        [Cached]
+        private SessionStore sessionStore = new SessionStore();
+
         [Resolved]
         private AudioManager audioManager { get; set; }
 
@@ -22,6 +26,7 @@ namespace EndangerEdDemo.Game.Tests.Visual
         private void load(AudioManager audioManager)
         {
             Dependencies.CacheAs(audioPlayer);
+            Dependencies.CacheAs(sessionStore);
             audioPlayer.Track = new Bindable<Track>(audioManager.Tracks.Get(audioPlayer.TrackName.Value));
         }
 

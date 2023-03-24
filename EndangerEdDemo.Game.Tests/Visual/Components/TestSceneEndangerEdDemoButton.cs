@@ -1,6 +1,8 @@
 using EndangerEdDemo.Game.Graphics.Components;
 using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
+using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osuTK;
 
@@ -9,6 +11,15 @@ namespace EndangerEdDemo.Game.Tests.Visual.Components;
 [TestFixture]
 public partial class TestSceneEndangerEdDemoButton : EndangerEdDemoTestScene
 {
+    [Cached]
+    private SessionStore sessionStore = new SessionStore();
+
+    [BackgroundDependencyLoader]
+    private void load()
+    {
+        Dependencies.CacheAs(sessionStore);
+    }
+
     public TestSceneEndangerEdDemoButton()
     {
         Add(new EndangerEdDemoGameScreenStack());

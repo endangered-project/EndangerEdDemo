@@ -1,8 +1,11 @@
-﻿using EndangerEdDemo.Game.Store;
+﻿using System.ComponentModel;
+using EndangerEdDemo.Game.Screen.Presentation;
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Shapes;
+using osu.Framework.Logging;
 using osu.Framework.Screens;
 
 namespace EndangerEdDemo.Game.Screen;
@@ -15,28 +18,43 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
     [Resolved]
     private SessionStore sessionStore { get; set; }
 
-    public EndangerEdDemoGameScreenStack gameScreenStack;
+    public EndangerEdDemoGameScreenStack GameScreenStack;
+
+    public ScreenStack PresentationScreenStack;
 
     /// <summary>
-    ///
+    /// A callback function that will be called when the screen mode changed.
     /// </summary>
-    /// <param name="screenModeChangedEvent"></param>
+    /// <param name="screenModeChangedEvent">A <see cref="ValueChangedEvent{ScreenMode}"/> that contains the new value.</param>
     private void onModeChanged(ValueChangedEvent<ScreenMode> screenModeChangedEvent)
     {
         if (screenModeChangedEvent.NewValue == ScreenMode.Normal)
         {
-            gameScreenStack.ScaleTo(1f, 500, Easing.OutQuint);
+            GameScreenStack.ScaleTo(1f, 500, Easing.OutQuint);
+            PresentationScreenStack.FadeTo(0f, 500, Easing.OutQuint);
         }
         else
         {
-            gameScreenStack.ScaleTo(0.6f, 500, Easing.OutQuint);
+            GameScreenStack.ScaleTo(0.6f, 500, Easing.OutQuint);
+            PresentationScreenStack.FadeTo(1f, 500, Easing.OutQuint);
         }
+    }
+
+    /// <summary>
+    /// Change the current slide to the given <see cref="PresentationSlideNumber"/>.
+    /// </summary>
+    /// <param name="slideNumberChangedEvent">A <see cref="ValueChangedEvent{PresentationSlideNumber}"/> that contains the new value.</param>
+    private void onSlideNumberChanged(ValueChangedEvent<PresentationSlideNumber> slideNumberChangedEvent)
+    {
+        PresentationScreenStack.Push(getSlideScreen(slideNumberChangedEvent.NewValue));
+        Logger.Log($"📺 Pushed {slideNumberChangedEvent.NewValue} slide to the presentation screen stack.");
     }
 
     [BackgroundDependencyLoader]
     private void load()
     {
         sessionStore.ScreenMode.BindValueChanged(onModeChanged);
+        sessionStore.CurrentSlideNumber.BindValueChanged(onSlideNumberChanged);
     }
 
     public EndangerEdDemoScreenStack()
@@ -57,12 +75,38 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
                 Colour = Colour4.Black,
                 Alpha = 0.8f
             },
-            gameScreenStack = new EndangerEdDemoGameScreenStack
+            GameScreenStack = new EndangerEdDemoGameScreenStack
+            {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both
+            },
+            PresentationScreenStack = new ScreenStack
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both
             }
         };
+    }
+
+    /// <summary>
+    /// Return a new <see cref="EndangerEdDemoPresentationScreen"/> with the given <see cref="PresentationSlideNumber"/>.
+    /// </summary>
+    /// <param name="slideNumber">A target <see cref="slideNumber"/></param>
+    /// <returns></returns>
+    private EndangerEdDemoPresentationScreen getSlideScreen(PresentationSlideNumber slideNumber)
+    {
+        switch (slideNumber)
+        {
+            case (PresentationSlideNumber.Slide0):
+                return new PresentationSlide0();
+
+            case (PresentationSlideNumber.Slide1):
+                return new PresentationSlide1();
+
+            default:
+                throw new InvalidEnumArgumentException("Invalid slide number.");
+        }
     }
 }

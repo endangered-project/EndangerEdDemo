@@ -1,3 +1,4 @@
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Extensions.Color4Extensions;
 using osu.Framework.Graphics;
@@ -7,13 +8,15 @@ using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
 
-namespace EndangerEdDemo.Game.Screen;
+namespace EndangerEdDemo.Game.Screen.Game;
 
 /// <summary>
 /// A welcome screen for the game to tell that this is a demo.
 /// </summary>
-public partial class WarningScreen : EndangerEdDemoScreen
+public partial class WarningScreen : EndangerEdDemoGameScreen
 {
+    public override PresentationSlideNumber PresentationSlideNumber => PresentationSlideNumber.Slide0;
+
     private SpriteIcon warningSprite;
 
     private readonly osu.Framework.Screens.Screen nextScreen;
@@ -110,7 +113,7 @@ public partial class WarningScreen : EndangerEdDemoScreen
             .Finally(next =>
             {
                 if (nextScreen != null)
-                    screenStack.gameScreenStack.Push(nextScreen);
+                    screenStack.GameScreenStack.Push(nextScreen);
             });
     }
 }

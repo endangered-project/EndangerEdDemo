@@ -1,19 +1,31 @@
 using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Screen.Game;
+using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
-using osu.Framework.Graphics;
-using osu.Framework.Screens;
+using osu.Framework.Allocation;
 
 namespace EndangerEdDemo.Game.Tests.Visual;
 
 [TestFixture]
 public partial class TestSceneEndangerEdDemoWarningScreen : EndangerEdDemoTestScene
 {
+    [Cached]
+    private SessionStore sessionStore = new SessionStore();
+
+    [Cached]
+    private EndangerEdDemoScreenStack screenStack = new EndangerEdDemoScreenStack();
+
+    [BackgroundDependencyLoader]
+    private void load()
+    {
+        Dependencies.CacheAs(sessionStore);
+        Dependencies.CacheAs(screenStack);
+    }
+
     [SetUp]
     public void SetUp()
     {
-        Add(new ScreenStack(new WarningScreen(null))
-        {
-            RelativeSizeAxes = Axes.Both
-        });
+        Add(screenStack);
+        screenStack.GameScreenStack.Push(new WarningScreen(null));
     }
 }
