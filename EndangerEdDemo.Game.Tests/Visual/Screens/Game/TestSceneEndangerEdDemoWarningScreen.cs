@@ -4,7 +4,7 @@ using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
 using osu.Framework.Allocation;
 
-namespace EndangerEdDemo.Game.Tests.Visual;
+namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game;
 
 [TestFixture]
 public partial class TestSceneEndangerEdDemoWarningScreen : EndangerEdDemoTestScene

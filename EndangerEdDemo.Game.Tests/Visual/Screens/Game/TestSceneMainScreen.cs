@@ -2,14 +2,14 @@ using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Screen.Game;
 using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
-using osu.Framework.Graphics;
-using osu.Framework.Screens;
 using osu.Framework.Allocation;
 using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
+using osu.Framework.Graphics;
+using osu.Framework.Screens;
 
-namespace EndangerEdDemo.Game.Tests.Visual
+namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
 {
     public partial class TestSceneMainScreen : EndangerEdDemoTestScene
     {

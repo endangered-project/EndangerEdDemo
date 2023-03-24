@@ -27,14 +27,14 @@ public partial class SwapModeButton : Button
     {
         Anchor = Anchor.BottomLeft;
         Origin = Anchor.BottomLeft;
-        Size = new Vector2(80);
+        Size = new Vector2(40);
         Position = new Vector2(20, -20);
         Action = sessionStore.SwapScreenMode;
         InternalChild = scaleContainer = new Container
         {
             Anchor = Anchor.Centre,
             Origin = Anchor.Centre,
-            Size = new Vector2(80),
+            Size = new Vector2(40),
             Children = new Drawable[]
             {
                 button = new Circle

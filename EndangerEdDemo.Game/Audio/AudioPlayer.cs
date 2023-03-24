@@ -81,6 +81,22 @@ public partial class AudioPlayer : CompositeDrawable
     }
 
     /// <summary>
+    /// Toggle the <see cref="Track"/> playing. If the track is playing, it will be paused. If the track is paused, it will be resumed.
+    /// Using <see cref="Play"/> and <see cref="Pause"/> instead of this method if you want to make sure that the track is playing or paused.
+    /// </summary>
+    public void TogglePlay()
+    {
+        if (Track.Value.IsRunning)
+        {
+            Pause();
+        }
+        else
+        {
+            Play();
+        }
+    }
+
+    /// <summary>
     /// Toggle the <see cref="Track"/> looping.
     /// </summary>
     public void Loop()

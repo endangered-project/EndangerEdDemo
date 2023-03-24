@@ -55,6 +55,7 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
     {
         sessionStore.ScreenMode.BindValueChanged(onModeChanged);
         sessionStore.CurrentSlideNumber.BindValueChanged(onSlideNumberChanged);
+        PresentationScreenStack.Push(getSlideScreen(PresentationSlideNumber.Slide0));
     }
 
     public EndangerEdDemoScreenStack()
@@ -85,7 +86,8 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both
+                RelativeSizeAxes = Axes.Both,
+                Alpha = 0f
             }
         };
     }
