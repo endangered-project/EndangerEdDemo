@@ -14,9 +14,17 @@ public partial class PresentationSlide1 : EndangerEdDemoPresentationScreen
             new SpriteText
             {
                 Text = "Main Menu",
-                Font = new FontUsage(size: 30),
+                Font = new FontUsage(size: 50),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,
+                Margin = new MarginPadding(10),
+            },
+            new SpriteText
+            {
+                Text = "1",
+                Font = new FontUsage(size: 30),
+                Anchor = Anchor.BottomRight,
+                Origin = Anchor.BottomRight,
                 Margin = new MarginPadding(10),
             }
         };
