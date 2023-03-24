@@ -16,4 +16,10 @@ public partial class EndangerEdDemoGameScreen : EndangerEdDemoScreen, IEndangerE
         base.OnEntering(e);
         sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber;
     }
+
+    public override void OnResuming(ScreenTransitionEvent e)
+    {
+        base.OnResuming(e);
+        sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber;
+    }
 }

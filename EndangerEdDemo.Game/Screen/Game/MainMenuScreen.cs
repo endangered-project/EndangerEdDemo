@@ -10,6 +10,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Graphics.UserInterface;
+using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
 
@@ -29,9 +30,13 @@ namespace EndangerEdDemo.Game.Screen.Game
         [Resolved]
         private AudioPlayer audioPlayer { get; set; }
 
+        [Resolved]
+        private EndangerEdDemoScreenStack screenStack { get; set; }
+
         [BackgroundDependencyLoader]
         private void load(TextureStore textureStore)
         {
+            Y = 3000f;
             InternalChildren = new Drawable[]
             {
                 new Container()
@@ -90,7 +95,8 @@ namespace EndangerEdDemo.Game.Screen.Game
                                     Origin = Anchor.Centre,
                                     Y = -50f,
                                     Width = 100,
-                                    Height = 50
+                                    Height = 50,
+                                    Action = () => screenStack.GameScreenStack.Push(new LoadingScreen())
                                 },
                                 new EndangerEdDemoButton("Leaderboard")
                                 {
@@ -205,6 +211,28 @@ namespace EndangerEdDemo.Game.Screen.Game
             base.LoadComplete();
             audioVisualizer.AddAmplitudeSource(audioPlayer.Track.Value);
             knowledgeBaseContainer.ScaleTo(new Vector2(1.2f), 500, Easing.OutSine).Then().ScaleTo(new Vector2(1f), 500, Easing.OutSine).Loop();
+        }
+
+        public override void OnEntering(ScreenTransitionEvent e)
+        {
+            base.OnEntering(e);
+            this.MoveToY(0f, 1000, Easing.OutQuint)
+                .FadeInFromZero(1000, Easing.OutQuint);
+        }
+
+        public override void OnSuspending(ScreenTransitionEvent e)
+        {
+            base.OnSuspending(e);
+            this.MoveToY(3000f, 1000, Easing.OutQuint)
+                .FadeTo(0f, 1000, Easing.OutQuint);
+        }
+
+        public override void OnResuming(ScreenTransitionEvent e)
+        {
+            base.OnResuming(e);
+            this.MoveToY(0f, 1000, Easing.OutQuint)
+                .FadeInFromZero(1000, Easing.OutQuint);
+            audioPlayer.Play();
         }
     }
 }

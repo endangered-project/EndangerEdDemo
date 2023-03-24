@@ -1,4 +1,5 @@
 using EndangerEdDemo.Game.Audio;
+using EndangerEdDemo.Game.Screen;
 using EndangerEdDemo.Game.Screen.Game;
 using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
@@ -7,7 +8,6 @@ using osu.Framework.Audio;
 using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
-using osu.Framework.Screens;
 
 namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
 {
@@ -22,6 +22,8 @@ namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
         [Resolved]
         private AudioManager audioManager { get; set; }
 
+        private EndangerEdDemoScreenStack mainScreenStack;
+
         [BackgroundDependencyLoader]
         private void load(AudioManager audioManager)
         {
@@ -32,14 +34,16 @@ namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
 
         protected override void LoadAsyncComplete()
         {
-            Add(new ScreenStack(new MainMenuScreen()) { RelativeSizeAxes = Axes.Both });
+            Add(mainScreenStack = new EndangerEdDemoScreenStack { RelativeSizeAxes = Axes.Both });
+            Dependencies.CacheAs(mainScreenStack);
+            mainScreenStack.GameScreenStack.Push(new MainMenuScreen());
         }
 
         [SetUp]
         public void SetUp()
         {
-            AddStep("play track", () => audioPlayer.Play());
             AddStep("pause track", () => audioPlayer.Pause());
+            AddStep("play track", () => audioPlayer.Play());
         }
     }
 }

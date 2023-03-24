@@ -12,7 +12,7 @@ using osu.Framework.Graphics;
 
 namespace EndangerEdDemo.Game.Tests.Visual.Screens.Presentation;
 
-public partial class TestSceneMainScreenSlide : EndangerEdDemoTestScene
+public partial class TestSceneLoadingScreenSlide : EndangerEdDemoTestScene
 {
     private EndangerEdDemoScreenStack mainScreenStack;
 
@@ -37,7 +37,7 @@ public partial class TestSceneMainScreenSlide : EndangerEdDemoTestScene
         });
         Dependencies.CacheAs(mainScreenStack);
         Add(new SwapModeButton());
-        mainScreenStack.GameScreenStack.Push(new MainMenuScreen());
+        mainScreenStack.GameScreenStack.Push(new LoadingScreen());
     }
 
     [SetUp]

@@ -26,4 +26,13 @@ public partial class EndangerEdDemoPresentationScreen : EndangerEdDemoScreen, IE
         this.FadeOut(500, Easing.OutQuint)
             .MoveToX(-100, 500, Easing.OutQuint);
     }
+
+    public override void OnResuming(ScreenTransitionEvent e)
+    {
+        base.OnResuming(e);
+        this.MoveToX(-100, 0, Easing.OutQuint)
+            .Then()
+            .FadeIn(500, Easing.OutQuint)
+            .MoveToX(0, 500, Easing.OutQuint);
+    }
 }

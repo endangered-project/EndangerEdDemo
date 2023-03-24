@@ -1,5 +1,4 @@
-using EndangerEdDemo.Game.Audio;
-using EndangerEdDemo.Game.Graphics.Components;
+﻿using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Screen;
 using EndangerEdDemo.Game.Screen.Game;
 using EndangerEdDemo.Game.Store;
@@ -10,14 +9,12 @@ using osu.Framework.Audio.Track;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 
-namespace EndangerEdDemo.Game.Tests.Visual.Screens.Presentation;
+namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game;
 
-public partial class TestSceneMainScreenSlide : EndangerEdDemoTestScene
+public partial class TestSceneLoadingScreen : EndangerEdDemoTestScene
 {
-    private EndangerEdDemoScreenStack mainScreenStack;
-
     [Cached]
-    private AudioPlayer audioPlayer = new AudioPlayer("dota.mp3");
+    private AudioPlayer audioPlayer = new AudioPlayer("matsuri.mp3");
 
     [Cached]
     private SessionStore sessionStore = new SessionStore();
@@ -25,26 +22,28 @@ public partial class TestSceneMainScreenSlide : EndangerEdDemoTestScene
     [Resolved]
     private AudioManager audioManager { get; set; }
 
+    private EndangerEdDemoScreenStack screenStack;
+
     [BackgroundDependencyLoader]
-    private void load()
+    private void load(AudioManager audioManager)
     {
         Dependencies.CacheAs(audioPlayer);
         Dependencies.CacheAs(sessionStore);
         audioPlayer.Track = new Bindable<Track>(audioManager.Tracks.Get(audioPlayer.TrackName.Value));
-        Add(mainScreenStack = new EndangerEdDemoScreenStack()
-        {
-            RelativeSizeAxes = Axes.Both
-        });
-        Dependencies.CacheAs(mainScreenStack);
-        Add(new SwapModeButton());
-        mainScreenStack.GameScreenStack.Push(new MainMenuScreen());
+    }
+
+    protected override void LoadAsyncComplete()
+    {
+        Add(screenStack = new EndangerEdDemoScreenStack { RelativeSizeAxes = Axes.Both });
+        Dependencies.CacheAs(screenStack);
+        screenStack.GameScreenStack.Push(new LoadingScreen());
     }
 
     [SetUp]
     public void SetUp()
     {
-        AddStep("switch mode", () => sessionStore.SwapScreenMode());
-        AddStep("play track", () => audioPlayer.Play());
         AddStep("pause track", () => audioPlayer.Pause());
+        AddStep("play track", () => audioPlayer.Play());
+        AddStep("switch scree mode", () => sessionStore.SwapScreenMode());
     }
 }

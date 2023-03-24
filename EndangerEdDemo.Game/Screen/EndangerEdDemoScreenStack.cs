@@ -107,6 +107,9 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
             case (PresentationSlideNumber.Slide1):
                 return new PresentationSlide1();
 
+            case (PresentationSlideNumber.Slide2):
+                return new PresentationSlide2();
+
             default:
                 throw new InvalidEnumArgumentException("Invalid slide number.");
         }

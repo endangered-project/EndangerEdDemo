@@ -26,7 +26,7 @@ public partial class EndangerEdDemoButton : Button
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
                 Masking = true,
-                CornerRadius = 30,
+                CornerRadius = 20,
                 BorderColour = Colour4.White,
                 BorderThickness = 5,
                 Children = new Drawable[]
@@ -44,8 +44,9 @@ public partial class EndangerEdDemoButton : Button
                         Origin = Anchor.Centre,
                         Text = text,
                     }
-                }
-            }
+                },
+            },
+            new ClickHoverSounds()
         };
     }
 
