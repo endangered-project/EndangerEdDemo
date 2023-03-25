@@ -23,15 +23,21 @@ namespace EndangerEdDemo.Game.Screen.Game
         private BasicButton startButton;
         private BasicButton leaderboardButton;
         private Container profilePictureContainer;
-        private Container profilePicture;
+        private Container guestProfilePicture;
+        private Sprite loggedInProfilePicture;
         private AudioVisualizer audioVisualizer;
         private Container knowledgeBaseContainer;
+        private EndangerEdDemoButton loginButton;
+        private EndangerEdDemoButton signUpButton;
 
         [Resolved]
         private AudioPlayer audioPlayer { get; set; }
 
         [Resolved]
         private EndangerEdDemoScreenStack screenStack { get; set; }
+
+        [Resolved]
+        private SessionStore sessionStore { get; set; }
 
         [BackgroundDependencyLoader]
         private void load(TextureStore textureStore)
@@ -118,14 +124,16 @@ namespace EndangerEdDemo.Game.Screen.Game
                                 Direction = FillDirection.Horizontal,
                                 Children = new List<Drawable>()
                                 {
-                                    new EndangerEdDemoButton("Login")
                                     {
-                                        Anchor = Anchor.Centre,
-                                        Origin = Anchor.Centre,
-                                        Y = 200f,
-                                        Width = 100,
-                                        Height = 50,
-                                        Margin = new MarginPadding { Right = 120 }
+                                        loginButton = new EndangerEdDemoButton("Login")
+                                        {
+                                            Anchor = Anchor.Centre,
+                                            Origin = Anchor.Centre,
+                                            Y = 200f,
+                                            Width = 100,
+                                            Height = 50,
+                                            Margin = new MarginPadding { Right = 120 }
+                                        }
                                     },
                                     {
                                         profilePictureContainer = new Container()
@@ -136,6 +144,16 @@ namespace EndangerEdDemo.Game.Screen.Game
                                             Padding = new MarginPadding { Right = 120 },
                                             Children = new Drawable[]
                                             {
+                                                loggedInProfilePicture = new Sprite
+                                                {
+                                                    Anchor = Anchor.Centre,
+                                                    Origin = Anchor.Centre,
+                                                    Name = "Profile picture",
+                                                    Width = 75,
+                                                    Height = 75,
+                                                    FillMode = FillMode.Fit,
+                                                    Texture = textureStore.Get("fuji.png")
+                                                },
                                                 audioVisualizer = new AudioVisualizer
                                                 {
                                                     Anchor = Anchor.Centre,
@@ -144,7 +162,7 @@ namespace EndangerEdDemo.Game.Screen.Game
                                                     Height = 75,
                                                     Alpha = 0.5f
                                                 },
-                                                profilePicture = new Container
+                                                guestProfilePicture = new Container
                                                 {
                                                     Anchor = Anchor.Centre,
                                                     Origin = Anchor.Centre,
@@ -190,13 +208,16 @@ namespace EndangerEdDemo.Game.Screen.Game
                                             }
                                         }
                                     },
-                                    new EndangerEdDemoButton("Sign up")
                                     {
-                                        Anchor = Anchor.Centre,
-                                        Origin = Anchor.Centre,
-                                        Y = 250f,
-                                        Width = 100,
-                                        Height = 50
+                                        signUpButton = new EndangerEdDemoButton("Sign up")
+                                        {
+                                            Anchor = Anchor.Centre,
+                                            Origin = Anchor.Centre,
+                                            Y = 250f,
+                                            Width = 100,
+                                            Height = 50,
+                                            AlwaysPresent = true
+                                        }
                                     }
                                 }
                             }
@@ -204,6 +225,23 @@ namespace EndangerEdDemo.Game.Screen.Game
                     }
                 }
             };
+            sessionStore.IsLoggedIn.BindValueChanged(isLoggedIn =>
+            {
+                if (isLoggedIn.NewValue)
+                {
+                    loggedInProfilePicture.FadeIn(500, Easing.OutQuint);
+                    guestProfilePicture.FadeOut(500, Easing.OutQuint);
+                    signUpButton.FadeOut(500, Easing.OutQuint);
+                    loginButton.SetText("Logout");
+                }
+                else
+                {
+                    loggedInProfilePicture.FadeOut(500, Easing.OutQuint);
+                    guestProfilePicture.FadeIn(500, Easing.OutQuint);
+                    signUpButton.FadeIn(500, Easing.OutQuint);
+                    loginButton.SetText("Login");
+                }
+            }, true);
         }
 
         protected override void LoadComplete()

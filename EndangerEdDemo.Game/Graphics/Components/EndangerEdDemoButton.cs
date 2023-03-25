@@ -11,9 +11,10 @@ namespace EndangerEdDemo.Game.Graphics.Components;
 
 public partial class EndangerEdDemoButton : Button
 {
-    private readonly string text;
+    private string text;
     public Colour4 ButtonColour = Colour4.DarkGreen;
     private Box buttonBox;
+    private SpriteText buttonText;
 
     [BackgroundDependencyLoader]
     private void load()
@@ -38,7 +39,7 @@ public partial class EndangerEdDemoButton : Button
                         RelativeSizeAxes = Axes.Both,
                         Colour = ButtonColour
                     },
-                    new SpriteText()
+                    buttonText = new SpriteText()
                     {
                         Anchor = Anchor.Centre,
                         Origin = Anchor.Centre,
@@ -86,5 +87,15 @@ public partial class EndangerEdDemoButton : Button
         }
 
         base.OnMouseUp(e);
+    }
+
+    /// <summary>
+    /// Sets the text of the button.
+    /// </summary>
+    /// <param name="text">A string containing the text to set.</param>
+    public void SetText(string text)
+    {
+        buttonText.Text = text;
+        this.text = text;
     }
 }

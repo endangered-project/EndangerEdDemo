@@ -43,7 +43,7 @@ public partial class TestSceneLoadingScreenSlide : EndangerEdDemoTestScene
     [SetUp]
     public void SetUp()
     {
-        AddStep("switch mode", () => sessionStore.SwapScreenMode());
+        AddStep("switch mode", () => sessionStore.SwitchScreenMode());
         AddStep("play track", () => audioPlayer.Play());
         AddStep("pause track", () => audioPlayer.Pause());
     }

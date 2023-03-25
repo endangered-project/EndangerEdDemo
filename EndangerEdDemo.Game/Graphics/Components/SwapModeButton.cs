@@ -34,7 +34,7 @@ public partial class SwapModeButton : Button
         Size = new Vector2(30);
         Position = new Vector2(20, -20);
         Alpha = 0.5f;
-        Action = sessionStore.SwapScreenMode;
+        Action = sessionStore.SwitchScreenMode;
         InternalChild = scaleContainer = new Container
         {
             Anchor = Anchor.Centre,

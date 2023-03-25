@@ -44,6 +44,6 @@ public partial class TestSceneLoadingScreen : EndangerEdDemoTestScene
     {
         AddStep("pause track", () => audioPlayer.Pause());
         AddStep("play track", () => audioPlayer.Play());
-        AddStep("switch scree mode", () => sessionStore.SwapScreenMode());
+        AddStep("switch scree mode", () => sessionStore.SwitchScreenMode());
     }
 }
