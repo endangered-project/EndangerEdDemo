@@ -5,9 +5,9 @@ using osu.Framework.Graphics.Sprites;
 
 namespace EndangerEdDemo.Game.Screen.Presentation;
 
-public partial class PresentationSlide0 : EndangerEdDemoPresentationScreen
+public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
 {
-    public override EndangerEdDemoGameScreen GameScreen => new LoadingScreen();
+    public override EndangerEdDemoGameScreen GameScreen => new MainMenuScreen();
 
     [BackgroundDependencyLoader]
     private void load()
@@ -16,7 +16,7 @@ public partial class PresentationSlide0 : EndangerEdDemoPresentationScreen
         {
             new SpriteText
             {
-                Text = "Welcome to the demo of EndangerEd!",
+                Text = "Loading screen before the game starts",
                 Font = new FontUsage(size: 50),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,
@@ -24,7 +24,7 @@ public partial class PresentationSlide0 : EndangerEdDemoPresentationScreen
             },
             new SpriteText
             {
-                Text = "0",
+                Text = "3",
                 Font = new FontUsage(size: 30),
                 Anchor = Anchor.BottomRight,
                 Origin = Anchor.BottomRight,

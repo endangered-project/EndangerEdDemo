@@ -1,3 +1,4 @@
+using EndangerEdDemo.Game.Screen.Game;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
@@ -6,6 +7,8 @@ namespace EndangerEdDemo.Game.Screen.Presentation;
 
 public partial class PresentationSlide1 : EndangerEdDemoPresentationScreen
 {
+    public override EndangerEdDemoGameScreen GameScreen => new MainMenuScreen();
+
     [BackgroundDependencyLoader]
     private void load()
     {

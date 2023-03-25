@@ -5,6 +5,8 @@ namespace EndangerEdDemo.Game.Screen;
 
 public partial class EndangerEdDemoPresentationScreen : EndangerEdDemoScreen, IEndangerEdDemoPresentationScreen
 {
+    public virtual EndangerEdDemoGameScreen GameScreen { get; }
+
     public EndangerEdDemoPresentationScreen()
     {
         RelativeSizeAxes = Axes.Both;

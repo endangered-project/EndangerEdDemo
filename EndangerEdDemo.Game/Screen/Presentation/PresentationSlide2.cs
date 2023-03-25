@@ -1,3 +1,4 @@
+using EndangerEdDemo.Game.Screen.Game;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Sprites;
@@ -6,6 +7,8 @@ namespace EndangerEdDemo.Game.Screen.Presentation;
 
 public partial class PresentationSlide2 : EndangerEdDemoPresentationScreen
 {
+    public override EndangerEdDemoGameScreen GameScreen => new MainMenuScreen();
+
     [BackgroundDependencyLoader]
     private void load()
     {
@@ -13,7 +16,7 @@ public partial class PresentationSlide2 : EndangerEdDemoPresentationScreen
         {
             new SpriteText
             {
-                Text = "Loading screen before the game starts",
+                Text = "Main Menu",
                 Font = new FontUsage(size: 50),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,

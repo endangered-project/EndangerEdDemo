@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using EndangerEdDemo.Game.Screen.Presentation;
+﻿using System;
 using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
@@ -99,19 +98,15 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
     /// <returns></returns>
     private EndangerEdDemoPresentationScreen getSlideScreen(PresentationSlideNumber slideNumber)
     {
-        switch (slideNumber)
+        // find the class in the EndangerEdDemo.Game.Screen.Presentation namespace that has the name Presentation{slideNumber}
+        var type = Type.GetType($"EndangerEdDemo.Game.Screen.Presentation.Presentation{slideNumber}");
+
+        if (type is null)
         {
-            case (PresentationSlideNumber.Slide0):
-                return new PresentationSlide0();
-
-            case (PresentationSlideNumber.Slide1):
-                return new PresentationSlide1();
-
-            case (PresentationSlideNumber.Slide2):
-                return new PresentationSlide2();
-
-            default:
-                throw new InvalidEnumArgumentException("Invalid slide number.");
+            throw new NullReferenceException($"Cannot find the type Presentation{slideNumber}.");
         }
+
+        // return a new instance of the class
+        return (EndangerEdDemoPresentationScreen)Activator.CreateInstance(type);
     }
 }

@@ -17,7 +17,7 @@ namespace EndangerEdDemo.Game.Screen.Game;
 /// </summary>
 public partial class LoadingScreen : EndangerEdDemoGameScreen
 {
-    public override PresentationSlideNumber PresentationSlideNumber { get; set; } = PresentationSlideNumber.Slide2;
+    public override PresentationSlideNumber PresentationSlideNumber { get; set; } = PresentationSlideNumber.Slide3;
 
     private Box loadingBar;
     private const float loading_bar_height = 20;
