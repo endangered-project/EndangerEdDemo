@@ -31,7 +31,7 @@ public partial class BackgroundScreen : EndangerEdDemoScreen
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
                 Colour = Colour4.Black,
-                Alpha = 0.4f
+                Alpha = 0.6f
             }
         };
     }

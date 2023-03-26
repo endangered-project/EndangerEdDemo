@@ -31,6 +31,8 @@ namespace EndangerEdDemo.Game
 
         private SwapModeButton swapModeButton;
 
+        private GameSessionStore gameSessionStore;
+
         protected override IReadOnlyDependencyContainer CreateChildDependencies(IReadOnlyDependencyContainer parent) =>
             dependencies = new DependencyContainer(base.CreateChildDependencies(parent));
 
@@ -39,6 +41,7 @@ namespace EndangerEdDemo.Game
         {
             dependencies.CacheAs(this);
             dependencies.CacheAs(sessionStore = new SessionStore());
+            dependencies.CacheAs(gameSessionStore = new GameSessionStore());
             Add(screenStack = new EndangerEdDemoScreenStack());
         }
 

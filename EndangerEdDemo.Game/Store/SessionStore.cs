@@ -14,6 +14,8 @@ public class SessionStore
 
     public Bindable<bool> IsLoggedIn { get; } = new Bindable<bool>(false);
 
+    public Bindable<bool> IsGameStarted { get; } = new Bindable<bool>(false);
+
     public SessionStore()
     {
         IsLoggedIn.BindValueChanged(isLoggedInChangedEvent =>
