@@ -4,6 +4,7 @@ using EndangerEdDemo.Game.Graphics;
 using EndangerEdDemo.Game.Graphics.Components;
 using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
@@ -38,6 +39,28 @@ namespace EndangerEdDemo.Game.Screen.Game
 
         [Resolved]
         private SessionStore sessionStore { get; set; }
+
+        private void onLoginChanged(ValueChangedEvent<bool> isLoggedIn)
+        {
+            {
+                if (isLoggedIn.NewValue)
+                {
+                    loggedInProfilePicture.FadeIn(500, Easing.OutQuint);
+                    guestProfilePicture.FadeOut(500, Easing.OutQuint);
+                    signUpButton.FadeOut(500, Easing.OutQuint);
+                    loginButton.SetText("Logout");
+                    Schedule(() => sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide2);
+                }
+                else
+                {
+                    loggedInProfilePicture.FadeOut(500, Easing.OutQuint);
+                    guestProfilePicture.FadeIn(500, Easing.OutQuint);
+                    signUpButton.FadeIn(500, Easing.OutQuint);
+                    loginButton.SetText("Login");
+                    Schedule(() => sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide1);
+                }
+            }
+        }
 
         [BackgroundDependencyLoader]
         private void load(TextureStore textureStore)
@@ -132,7 +155,11 @@ namespace EndangerEdDemo.Game.Screen.Game
                                             Y = 200f,
                                             Width = 100,
                                             Height = 50,
-                                            Margin = new MarginPadding { Right = 120 }
+                                            Margin = new MarginPadding { Right = 120 },
+                                            Action = () =>
+                                            {
+                                                sessionStore.SwitchLoggedInState();
+                                            }
                                         }
                                     },
                                     {
@@ -160,7 +187,8 @@ namespace EndangerEdDemo.Game.Screen.Game
                                                     Origin = Anchor.Centre,
                                                     Width = 75,
                                                     Height = 75,
-                                                    Alpha = 0.5f
+                                                    // TODO: Fix this after profile picture is circle
+                                                    Alpha = 0f
                                                 },
                                                 guestProfilePicture = new Container
                                                 {
@@ -225,23 +253,7 @@ namespace EndangerEdDemo.Game.Screen.Game
                     }
                 }
             };
-            sessionStore.IsLoggedIn.BindValueChanged(isLoggedIn =>
-            {
-                if (isLoggedIn.NewValue)
-                {
-                    loggedInProfilePicture.FadeIn(500, Easing.OutQuint);
-                    guestProfilePicture.FadeOut(500, Easing.OutQuint);
-                    signUpButton.FadeOut(500, Easing.OutQuint);
-                    loginButton.SetText("Logout");
-                }
-                else
-                {
-                    loggedInProfilePicture.FadeOut(500, Easing.OutQuint);
-                    guestProfilePicture.FadeIn(500, Easing.OutQuint);
-                    signUpButton.FadeIn(500, Easing.OutQuint);
-                    loginButton.SetText("Login");
-                }
-            }, true);
+            sessionStore.IsLoggedIn.BindValueChanged(onLoginChanged, true);
         }
 
         protected override void LoadComplete()
@@ -271,6 +283,11 @@ namespace EndangerEdDemo.Game.Screen.Game
             this.MoveToY(0f, 1000, Easing.OutQuint)
                 .FadeInFromZero(1000, Easing.OutQuint);
             audioPlayer.Play();
+
+            if (sessionStore.IsLoggedIn.Value)
+            {
+                sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide2;
+            }
         }
     }
 }

@@ -54,6 +54,9 @@ public partial class AudioPlayer : CompositeDrawable
         }
 
         Track.Value.Looping = true;
+
+        // TODO: Remove this when we have proper settings
+        audioManagerSource.VolumeTrack.Value = 0f;
     }
 
     /// <summary>

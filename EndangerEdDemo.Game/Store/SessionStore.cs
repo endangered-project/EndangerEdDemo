@@ -14,6 +14,14 @@ public class SessionStore
 
     public Bindable<bool> IsLoggedIn { get; } = new Bindable<bool>(false);
 
+    public SessionStore()
+    {
+        IsLoggedIn.BindValueChanged(isLoggedInChangedEvent =>
+        {
+            Logger.Log($"🏬 Logged in state changed to {isLoggedInChangedEvent.NewValue}.");
+        });
+    }
+
     /// <summary>
     /// Swap the current screen mode to the other one.
     /// </summary>
@@ -30,5 +38,21 @@ public class SessionStore
     {
         IsLoggedIn.Value = !IsLoggedIn.Value;
         Logger.Log($"🏬 Logged in state changed to {IsLoggedIn.Value}.");
+    }
+
+    /// <summary>
+    /// Login the user.
+    /// </summary>
+    public void Login()
+    {
+        IsLoggedIn.Value = true;
+    }
+
+    /// <summary>
+    /// Logout the user.
+    /// </summary>
+    public void Logout()
+    {
+        IsLoggedIn.Value = false;
     }
 }

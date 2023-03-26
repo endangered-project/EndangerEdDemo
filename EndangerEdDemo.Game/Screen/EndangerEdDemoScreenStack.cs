@@ -34,7 +34,7 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
         }
         else
         {
-            GameScreenStack.ScaleTo(0.6f, 500, Easing.OutQuint);
+            GameScreenStack.ScaleTo(0.7f, 500, Easing.OutQuint);
             PresentationScreenStack.FadeTo(1f, 500, Easing.OutQuint);
         }
     }
