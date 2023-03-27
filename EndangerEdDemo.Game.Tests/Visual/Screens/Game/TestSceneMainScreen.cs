@@ -19,6 +19,9 @@ namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
         [Cached]
         private SessionStore sessionStore = new SessionStore();
 
+        [Cached]
+        private GameSessionStore gameSessionStore = new GameSessionStore();
+
         [Resolved]
         private AudioManager audioManager { get; set; }
 
@@ -29,6 +32,7 @@ namespace EndangerEdDemo.Game.Tests.Visual.Screens.Game
         {
             Dependencies.CacheAs(audioPlayer);
             Dependencies.CacheAs(sessionStore);
+            Dependencies.CacheAs(gameSessionStore);
             audioPlayer.Track = new Bindable<Track>(audioManager.Tracks.Get(audioPlayer.TrackName.Value));
         }
 

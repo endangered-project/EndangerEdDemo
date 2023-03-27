@@ -10,4 +10,12 @@ public class GameSessionStore
     public const int MAX_LIFE = 3;
 
     public BindableInt Life = new BindableInt(MAX_LIFE);
+
+    /// <summary>
+    /// Reset the game session to initial state.
+    /// </summary>
+    public void Reset()
+    {
+        Life.Value = MAX_LIFE;
+    }
 }

@@ -44,5 +44,6 @@ public partial class TestSceneLifeInGame : EndangerEdDemoTestScene
     {
         AddSliderStep("Life", 0, 20, 3, value => gameSessionStore.Life.Value = value);
         AddStep("remove one heart", () => gameSessionStore.Life.Value -= 1);
+        AddRepeatStep("try to remove one heart many times", () => gameSessionStore.Life.Value -= 1, 100);
     }
 }

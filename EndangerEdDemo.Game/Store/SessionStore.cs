@@ -1,4 +1,5 @@
-﻿using osu.Framework.Bindables;
+﻿using osu.Framework.Allocation;
+using osu.Framework.Bindables;
 using osu.Framework.Logging;
 
 namespace EndangerEdDemo.Game.Store;
@@ -15,6 +16,9 @@ public class SessionStore
     public Bindable<bool> IsLoggedIn { get; } = new Bindable<bool>(false);
 
     public Bindable<bool> IsGameStarted { get; } = new Bindable<bool>(false);
+
+    [Resolved]
+    private GameSessionStore gameSessionStore { get; set; }
 
     public SessionStore()
     {
@@ -56,5 +60,13 @@ public class SessionStore
     public void Logout()
     {
         IsLoggedIn.Value = false;
+    }
+
+    /// <summary>
+    /// Start the game and also alert the <see cref="GameSessionStore"/> to start the game.
+    /// </summary>
+    public void StartGame()
+    {
+        IsGameStarted.Value = true;
     }
 }

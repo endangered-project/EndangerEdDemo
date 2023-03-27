@@ -14,10 +14,14 @@ public partial class TestSceneEndangerEdDemoButton : EndangerEdDemoTestScene
     [Cached]
     private SessionStore sessionStore = new SessionStore();
 
+    [Cached]
+    private GameSessionStore gameSessionStore = new GameSessionStore();
+
     [BackgroundDependencyLoader]
     private void load()
     {
         Dependencies.CacheAs(sessionStore);
+        Dependencies.CacheAs(gameSessionStore);
     }
 
     public TestSceneEndangerEdDemoButton()

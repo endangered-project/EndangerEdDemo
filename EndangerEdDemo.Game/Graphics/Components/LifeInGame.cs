@@ -101,6 +101,11 @@ public partial class LifeInGame : CompositeDrawable
     /// </summary>
     private void removeHeart()
     {
+        if (heartContainer.Children.Count == 0)
+        {
+            return;
+        }
+
         Drawable lastHeart = heartContainer.Children.Last();
         // Add fade out animation to the last heart
         Schedule(() => lastHeart.FlashColour(Colour4.White, 500, Easing.OutQuint).FadeOut(250).Expire());

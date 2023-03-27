@@ -15,11 +15,15 @@ public partial class TestSceneEndangerEdDemoWarningScreen : EndangerEdDemoTestSc
     [Cached]
     private EndangerEdDemoScreenStack screenStack = new EndangerEdDemoScreenStack();
 
+    [Cached]
+    private GameSessionStore gameSessionStore = new GameSessionStore();
+
     [BackgroundDependencyLoader]
     private void load()
     {
         Dependencies.CacheAs(sessionStore);
         Dependencies.CacheAs(screenStack);
+        Dependencies.CacheAs(gameSessionStore);
     }
 
     [SetUp]

@@ -75,7 +75,7 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
                 Colour = Colour4.Black,
                 Alpha = 0.8f
             },
-            GameScreenStack = new Screenstack.EndangerEdDemoGameScreenStack
+            GameScreenStack = new EndangerEdDemoGameScreenStack
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,

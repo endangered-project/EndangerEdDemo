@@ -7,6 +7,9 @@ namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameScreenStack : ScreenStack
 {
+    private EndangerEdDemoGameSessionScreenStack gameSessionScreenStack;
+    private ScreenStack menuScreenStack;
+
     [Resolved]
     private SessionStore sessionStore { get; set; }
 
@@ -20,12 +23,50 @@ public partial class EndangerEdDemoGameScreenStack : ScreenStack
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
             },
-            new EndangerEdDemoGameSessionScreenStack()
+            menuScreenStack = new ScreenStack()
+            {
+                Anchor = Anchor.Centre,
+                Origin = Anchor.Centre,
+                RelativeSizeAxes = Axes.Both,
+            },
+            gameSessionScreenStack = new EndangerEdDemoGameSessionScreenStack()
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
             }
         };
+    }
+
+    protected override void LoadAsyncComplete()
+    {
+        base.LoadAsyncComplete();
+        sessionStore.IsGameStarted.BindValueChanged(isGameStarted =>
+        {
+            Schedule(() =>
+            {
+                if (isGameStarted.NewValue)
+                {
+                    gameSessionScreenStack.Show();
+                    menuScreenStack.Hide();
+                }
+                else
+                {
+                    gameSessionScreenStack.Hide();
+                    menuScreenStack.Show();
+                }
+            });
+        }, true);
+    }
+
+    /// <summary>
+    /// Push the new <see cref="Screen"/> to the <see cref="menuScreenStack"/>.
+    ///
+    /// This will override the traditional <see cref="ScreenStack.Push"/> method.
+    /// </summary>
+    /// <param name="screen">A new screen to push</param>
+    public void Push(osu.Framework.Screens.Screen screen)
+    {
+        menuScreenStack.Push(screen);
     }
 }

@@ -185,6 +185,10 @@ public partial class LoadingScreen : EndangerEdDemoGameScreen
         this.Delay(1000).Then().Schedule(() =>
         {
             loadingText.Text = "Loading finished!";
+        }).Delay(500).Then().Schedule(() =>
+        {
+            sessionStore.StartGame();
+            sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide4;
         });
     }
 }
