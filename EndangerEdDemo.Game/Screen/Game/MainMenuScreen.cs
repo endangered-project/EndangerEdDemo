@@ -35,7 +35,7 @@ namespace EndangerEdDemo.Game.Screen.Game
         private AudioPlayer audioPlayer { get; set; }
 
         [Resolved]
-        private EndangerEdDemoScreenStack screenStack { get; set; }
+        private Screenstack.EndangerEdDemoScreenStack screenStack { get; set; }
 
         [Resolved]
         private SessionStore sessionStore { get; set; }

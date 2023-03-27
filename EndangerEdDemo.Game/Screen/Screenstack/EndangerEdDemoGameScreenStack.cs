@@ -3,7 +3,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Screens;
 
-namespace EndangerEdDemo.Game.Screen;
+namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameScreenStack : ScreenStack
 {

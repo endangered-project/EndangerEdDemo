@@ -1,5 +1,5 @@
-using EndangerEdDemo.Game.Screen;
 using EndangerEdDemo.Game.Screen.Game;
+using EndangerEdDemo.Game.Screen.Screenstack;
 using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
 using osu.Framework.Allocation;

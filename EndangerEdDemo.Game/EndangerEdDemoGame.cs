@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using EndangerEdDemo.Game.Audio;
 using EndangerEdDemo.Game.Graphics.Components;
-using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Screen.Screenstack;
 using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;

@@ -1,4 +1,4 @@
-﻿using EndangerEdDemo.Game.Screen;
+﻿using EndangerEdDemo.Game.Screen.Screenstack;
 using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 

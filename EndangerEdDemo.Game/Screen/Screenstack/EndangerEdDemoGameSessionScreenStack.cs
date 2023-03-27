@@ -6,7 +6,7 @@ using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
 using osuTK;
 
-namespace EndangerEdDemo.Game.Screen;
+namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
 {

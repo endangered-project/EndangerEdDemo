@@ -34,7 +34,7 @@ public partial class LoadingScreen : EndangerEdDemoGameScreen
     private AudioPlayer audioPlayer { get; set; }
 
     [Resolved]
-    private EndangerEdDemoScreenStack screenStack { get; set; }
+    private Screenstack.EndangerEdDemoScreenStack screenStack { get; set; }
 
     private void onModeChanged(ValueChangedEvent<ScreenMode> screenModeChangedEvent)
     {

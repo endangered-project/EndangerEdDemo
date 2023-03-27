@@ -7,7 +7,7 @@ using osu.Framework.Graphics.Shapes;
 using osu.Framework.Logging;
 using osu.Framework.Screens;
 
-namespace EndangerEdDemo.Game.Screen;
+namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 /// <summary>
 /// A main screen stack include the presentation screen and the game stack.
@@ -75,7 +75,7 @@ public partial class EndangerEdDemoScreenStack : ScreenStack
                 Colour = Colour4.Black,
                 Alpha = 0.8f
             },
-            GameScreenStack = new EndangerEdDemoGameScreenStack
+            GameScreenStack = new Screenstack.EndangerEdDemoGameScreenStack
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,

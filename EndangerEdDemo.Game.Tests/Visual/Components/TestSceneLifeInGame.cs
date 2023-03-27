@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using EndangerEdDemo.Game.Graphics.Components;
-using EndangerEdDemo.Game.Screen;
+using EndangerEdDemo.Game.Screen.Screenstack;
 using EndangerEdDemo.Game.Store;
 using NUnit.Framework;
 using osu.Framework.Allocation;
