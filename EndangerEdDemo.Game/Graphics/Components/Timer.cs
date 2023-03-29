@@ -6,12 +6,12 @@ using osu.Framework.Graphics.Sprites;
 
 namespace EndangerEdDemo.Game.Graphics.Components;
 
-public partial class ScoreDisplay : CompositeDrawable
+public partial class Timer : CompositeDrawable
 {
     [Resolved]
     private GameSessionStore gameSessionStore { get; set; }
 
-    private SpriteText scoreText;
+    private SpriteText timerText;
 
     [BackgroundDependencyLoader]
     private void load()
@@ -20,13 +20,13 @@ public partial class ScoreDisplay : CompositeDrawable
         {
             new SpriteText
             {
-                Text = "Score",
+                Text = "Time",
                 Font = new FontUsage(size: 30),
-                Anchor = Anchor.TopCentre,
-                Origin = Anchor.TopCentre,
+                Anchor = Anchor.TopRight,
+                Origin = Anchor.TopRight,
                 Margin = new MarginPadding(10),
             },
-            scoreText = new SpriteText
+            timerText = new SpriteText
             {
                 Anchor = Anchor.TopCentre,
                 Origin = Anchor.TopCentre,
@@ -37,23 +37,31 @@ public partial class ScoreDisplay : CompositeDrawable
                     Top = 40,
                     Left = 10,
                 },
-            },
-            new Timer
-            {
-                Anchor = Anchor.Centre,
-                Origin = Anchor.Centre,
-                RelativeSizeAxes = Axes.Both
             }
         };
     }
 
-    protected override void LoadComplete()
+    protected override void Update()
     {
-        base.LoadComplete();
-        gameSessionStore.Score.BindValueChanged(score =>
+        base.Update();
+        // get time - TIME_PER_GAME
+        long time = gameSessionStore.StopwatchClock.ElapsedMilliseconds - GameSessionStore.TIME_PER_GAME;
+
+        // format : 00:00
+        // add 0 if less than 10
+        string minutes = (time / 1000 / 60).ToString();
+        string seconds = (time / 1000 % 60).ToString();
+
+        if (time / 1000 / 60 < 10)
         {
-            // Add comma separator
-            scoreText.Text = score.NewValue.ToString("N0");
-        });
+            minutes = "0" + minutes;
+        }
+
+        if (time / 1000 % 60 < 10)
+        {
+            seconds = "0" + seconds;
+        }
+
+        timerText.Text = minutes + ":" + seconds;
     }
 }

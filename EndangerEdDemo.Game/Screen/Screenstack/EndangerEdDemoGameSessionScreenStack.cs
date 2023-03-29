@@ -45,6 +45,12 @@ public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
                 Margin = new MarginPadding(10),
                 Name = "Mock screen",
                 Texture = store.Get("background2.png")
+            },
+            new ScoreDisplay()
+            {
+                Anchor = Anchor.TopCentre,
+                Origin = Anchor.TopCentre,
+                RelativeSizeAxes = Axes.Both,
             }
         };
     }

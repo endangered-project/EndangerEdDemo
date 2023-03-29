@@ -12,6 +12,14 @@ public partial class TestSceneGameSessionScreenStack : EndangerEdDemoTestScene
     [Cached]
     private GameSessionStore gameSessionStore = new GameSessionStore();
 
+    [BackgroundDependencyLoader]
+    private void load()
+    {
+        Dependencies.CacheAs(sessionStore);
+        Dependencies.CacheAs(gameSessionStore);
+        sessionStore.IsGameStarted.Value = true;
+    }
+
     public TestSceneGameSessionScreenStack()
     {
         Add(new EndangerEdDemoGameScreenStack());
