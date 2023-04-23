@@ -104,6 +104,23 @@ public partial class PresentationSlide4 : EndangerEdDemoPresentationScreen
                 },
                 Colour = Colour4.Red
             },
+            new EndangerEdDemoButton("Reset timer")
+            {
+                Anchor = Anchor.TopLeft,
+                Origin = Anchor.TopLeft,
+                Action = () =>
+                {
+                    gameSessionStore.StopwatchClock.Reset();
+                },
+                Width = 100,
+                Height = 50,
+                Margin = new MarginPadding
+                {
+                    Top = 240,
+                    Left = 10,
+                },
+                Colour = Colour4.Blue
+            },
             new EndangerEdDemoButton("Clear")
             {
                 Anchor = Anchor.TopLeft,
@@ -116,10 +133,44 @@ public partial class PresentationSlide4 : EndangerEdDemoPresentationScreen
                 Height = 50,
                 Margin = new MarginPadding
                 {
-                    Top = 240,
+                    Top = 300,
                     Left = 10,
                 },
                 Colour = Colour4.Yellow
+            },
+            new EndangerEdDemoButton("Remove live")
+            {
+                Anchor = Anchor.TopLeft,
+                Origin = Anchor.TopLeft,
+                Action = () =>
+                {
+                    gameSessionStore.Life.Value--;
+                },
+                Width = 100,
+                Height = 50,
+                Margin = new MarginPadding
+                {
+                    Top = 360,
+                    Left = 10,
+                },
+                Colour = Colour4.DarkRed
+            },
+            new EndangerEdDemoButton("Reset live")
+            {
+                Anchor = Anchor.TopLeft,
+                Origin = Anchor.TopLeft,
+                Action = () =>
+                {
+                    gameSessionStore.Life.Value = 3;
+                },
+                Width = 100,
+                Height = 50,
+                Margin = new MarginPadding
+                {
+                    Top = 420,
+                    Left = 10,
+                },
+                Colour = Colour4.DarkOliveGreen
             },
             new EndangerEdDemoButton("Start demo1")
             {
@@ -145,7 +196,7 @@ public partial class PresentationSlide4 : EndangerEdDemoPresentationScreen
                     Top = 120,
                     Right = 10,
                 },
-                Colour = Colour4.Blue
+                Colour = Colour4.LightGreen
             },
             new EndangerEdDemoButton("Start demo2")
             {
@@ -171,7 +222,7 @@ public partial class PresentationSlide4 : EndangerEdDemoPresentationScreen
                     Top = 180,
                     Right = 10,
                 },
-                Colour = Colour4.Blue
+                Colour = Colour4.LightGreen
             },
             new FillFlowContainer
             {

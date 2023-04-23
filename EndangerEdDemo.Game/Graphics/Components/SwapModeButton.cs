@@ -77,7 +77,7 @@ public partial class SwapModeButton : Button
             if (mode.NewValue == ScreenMode.Presentation)
             {
                 icon.Icon = FontAwesome.Solid.Desktop;
-                this.FadeTo(0.6f, 500, Easing.OutQuint);
+                this.FadeTo(0.1f, 500, Easing.OutQuint);
                 toPresentationModeSample?.Play();
             }
             else
