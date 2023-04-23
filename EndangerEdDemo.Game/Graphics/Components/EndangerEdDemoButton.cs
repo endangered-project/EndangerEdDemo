@@ -98,4 +98,10 @@ public partial class EndangerEdDemoButton : Button
         buttonText.Text = text;
         this.text = text;
     }
+
+    public void SetColour(Colour4 colour)
+    {
+        ButtonColour = colour;
+        buttonBox.Colour = colour;
+    }
 }

@@ -1,4 +1,5 @@
 ﻿using EndangerEdDemo.Game.Screen.Game;
+using EndangerEdDemo.Game.Screen.Game.MicroGame;
 using EndangerEdDemo.Game.Screen.Screenstack;
 using osu.Framework.Allocation;
 using osu.Framework.Bindables;
@@ -33,21 +34,6 @@ public partial class GameSessionStore : CompositeDrawable
     // We need to use StopwatchClock instead of Stopwatch because it's also depend on the frame time on framework too.
     public StopwatchClock StopwatchClock = new StopwatchClock();
 
-    protected override void LoadAsyncComplete()
-    {
-        base.LoadAsyncComplete();
-        GameCount.BindValueChanged(gameCountChangedEvent =>
-        {
-            Logger.Log($"🏬 Game count changed to {gameCountChangedEvent.NewValue}.");
-            osu.Framework.Screens.Screen startScreen = new StartMicrogameScreen();
-            screenStack.GameScreenStack.GameSessionScreenStack.MainScreenStack.Push(new StartMicrogameScreen());
-            startScreen.FadeInFromZero(1000)
-                       .Then(2000)
-                       .FadeOut(1000)
-                       .MoveToY(-200, 250, Easing.OutQuint);
-        });
-    }
-
     /// <summary>
     /// Reset the game session to initial state.
     /// </summary>
@@ -58,8 +44,34 @@ public partial class GameSessionStore : CompositeDrawable
         StopwatchClock.Reset();
     }
 
+    public void EndGame()
+    {
+
+    }
+
+    public void StartGame()
+    {
+        Logger.Log($"🏬 Game started!");
+        Schedule(() =>
+        {
+            osu.Framework.Screens.Screen startScreen = new StartMicrogameScreen();
+            screenStack.GameScreenStack.GameSessionScreenStack.MainScreenStack.Push(new StartMicrogameScreen());
+            startScreen.FadeInFromZero(1000)
+                       .Then(2000)
+                       .FadeOut(1000)
+                       .MoveToY(-200, 250, Easing.OutQuint);
+            StopwatchClock.Start();
+        });
+        Schedule(() => screenStack.GameScreenStack.GameSessionScreenStack.MainScreenStack.Push(new SelectNameMicroGameScreen()));
+    }
+
     public bool IsOverTime()
     {
         return StopwatchClock.ElapsedMilliseconds >= TIME_PER_GAME;
+    }
+
+    public int GetTimeLeft()
+    {
+        return (int)((TIME_PER_GAME - StopwatchClock.ElapsedMilliseconds) / 1000);
     }
 }

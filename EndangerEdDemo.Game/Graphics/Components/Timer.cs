@@ -3,6 +3,7 @@ using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Sprites;
+using osuTK;
 
 namespace EndangerEdDemo.Game.Graphics.Components;
 
@@ -12,6 +13,9 @@ public partial class Timer : CompositeDrawable
     private GameSessionStore gameSessionStore { get; set; }
 
     private SpriteText timerText;
+    private SpriteIcon icon;
+
+    private string lastUpdate = "1:00";
 
     [BackgroundDependencyLoader]
     private void load()
@@ -26,17 +30,30 @@ public partial class Timer : CompositeDrawable
                 Origin = Anchor.TopRight,
                 Margin = new MarginPadding(10),
             },
-            timerText = new SpriteText
+            new FillFlowContainer
             {
-                Anchor = Anchor.TopCentre,
-                Origin = Anchor.TopCentre,
-                Text = gameSessionStore.Score.Value.ToString(),
-                Font = new FontUsage(size:30),
+                Anchor = Anchor.TopRight,
+                Origin = Anchor.TopRight,
+                Direction = FillDirection.Horizontal,
                 Margin = new MarginPadding
                 {
-                    Top = 40,
-                    Left = 10,
+                    Top = 50,
+                    Right = 100,
                 },
+                Spacing = new Vector2(10),
+                Children = new Drawable[]
+                {
+                    icon = new SpriteIcon
+                    {
+                        Icon = FontAwesome.Solid.Clock,
+                        Size = new Vector2(30),
+                    },
+                    timerText = new SpriteText
+                    {
+                        Text = gameSessionStore.Score.Value.ToString(),
+                        Font = new FontUsage(size:30),
+                    }
+                }
             }
         };
     }
@@ -44,24 +61,31 @@ public partial class Timer : CompositeDrawable
     protected override void Update()
     {
         base.Update();
-        // get time - TIME_PER_GAME
-        long time = gameSessionStore.StopwatchClock.ElapsedMilliseconds - GameSessionStore.TIME_PER_GAME;
+        // Calculate countdown
+        string countdown = "";
+        // Time per game is in milliseconds
+        const int totalTime = GameSessionStore.TIME_PER_GAME / 1000;
+        int timeLeft = totalTime - (int)gameSessionStore.StopwatchClock.Elapsed.TotalSeconds;
 
-        // format : 00:00
-        // add 0 if less than 10
-        string minutes = (time / 1000 / 60).ToString();
-        string seconds = (time / 1000 % 60).ToString();
-
-        if (time / 1000 / 60 < 10)
+        // If time left is less than 0, set it to 0
+        if (timeLeft < 0)
         {
-            minutes = "0" + minutes;
+            timeLeft = 0;
         }
 
-        if (time / 1000 % 60 < 10)
-        {
-            seconds = "0" + seconds;
-        }
+        // Calculate minutes left
+        int minutesLeft = timeLeft / 60;
+        // Calculate seconds left
+        int secondsLeft = timeLeft % 60;
+        // Add 0 to seconds if seconds or minutes is less than 10
+        countdown += $"{minutesLeft}:{(secondsLeft < 10 ? "0" : "")}{secondsLeft}";
+        timerText.Text = $"{countdown}";
 
-        timerText.Text = minutes + ":" + seconds;
+        // If the countdown has changed, update the lastUpdate variable
+        if (countdown != lastUpdate)
+        {
+            lastUpdate = countdown;
+            icon.FlashColour(Colour4.Red, 500, Easing.OutQuint);
+        }
     }
 }
