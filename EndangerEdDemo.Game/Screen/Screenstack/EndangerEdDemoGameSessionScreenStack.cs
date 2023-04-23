@@ -1,4 +1,5 @@
 ﻿using EndangerEdDemo.Game.Graphics.Components;
+using EndangerEdDemo.Game.Store;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Textures;
@@ -9,6 +10,9 @@ namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
 {
+    [Resolved]
+    private SessionStore sessionStore { get; set; }
+
     public ScreenStack MainScreenStack { get; set; }
 
     [BackgroundDependencyLoader]
@@ -23,7 +27,12 @@ public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
                 Origin = Anchor.BottomRight,
                 Margin = new MarginPadding(10),
                 Width = 80,
-                Height = 50
+                Height = 50,
+                Action = () =>
+                {
+                    sessionStore.IsGameStarted.Value = false;
+                    sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide5;
+                }
             },
             new EndangerEdDemoButton("Skip")
             {

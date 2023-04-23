@@ -1,4 +1,5 @@
 using EndangerEdDemo.Game.Screen.Game;
+using EndangerEdDemo.Game.Screen.Screenstack;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
 using osu.Framework.Graphics.Containers;
@@ -7,9 +8,12 @@ using osuTK;
 
 namespace EndangerEdDemo.Game.Screen.Presentation;
 
-public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
+public partial class PresentationSlide5 : EndangerEdDemoPresentationScreen
 {
-    public override EndangerEdDemoGameScreen GameScreen => new MainMenuScreen();
+    public override EndangerEdDemoGameScreen GameScreen => new ResultScreen();
+
+    [Resolved]
+    private EndangerEdDemoScreenStack screenStack { get; set; }
 
     [BackgroundDependencyLoader]
     private void load()
@@ -18,7 +22,7 @@ public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
         {
             new SpriteText
             {
-                Text = "Loading screen before the game starts",
+                Text = "Result Menu",
                 Font = new FontUsage(size: 50),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,
@@ -26,35 +30,11 @@ public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
             },
             new SpriteText
             {
-                Text = "3",
+                Text = "5",
                 Font = new FontUsage(size: 30),
                 Anchor = Anchor.BottomRight,
                 Origin = Anchor.BottomRight,
                 Margin = new MarginPadding(10),
-            },
-            new SpriteText
-            {
-                Text = "During the loading process, the loading screen is shown.",
-                Font = new FontUsage(size: 25),
-                Anchor = Anchor.TopLeft,
-                Origin = Anchor.TopLeft,
-                Margin = new MarginPadding()
-                {
-                    Top = 60,
-                    Left = 10,
-                }
-            },
-            new SpriteText
-            {
-                Text = "Now the game is currently contact with the game server to create a new game session.",
-                Font = new FontUsage(size: 25),
-                Anchor = Anchor.TopLeft,
-                Origin = Anchor.TopLeft,
-                Margin = new MarginPadding()
-                {
-                    Top = 80,
-                    Left = 10,
-                }
             },
             new FillFlowContainer
             {
@@ -86,5 +66,10 @@ public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
                 }
             }
         };
+    }
+
+    protected override void LoadComplete()
+    {
+        Schedule(() => screenStack.GameScreenStack.Push(new ResultScreen()));
     }
 }

@@ -6,5 +6,6 @@ public enum PresentationSlideNumber
     Slide1,
     Slide2,
     Slide3,
-    Slide4
+    Slide4,
+    Slide5
 }

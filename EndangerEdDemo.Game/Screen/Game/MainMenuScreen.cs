@@ -10,7 +10,6 @@ using osu.Framework.Graphics.Containers;
 using osu.Framework.Graphics.Shapes;
 using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
-using osu.Framework.Graphics.UserInterface;
 using osu.Framework.Screens;
 using osuTK;
 using osuTK.Graphics;
@@ -21,8 +20,8 @@ namespace EndangerEdDemo.Game.Screen.Game
     {
         public override PresentationSlideNumber PresentationSlideNumber => PresentationSlideNumber.Slide1;
 
-        private BasicButton startButton;
-        private BasicButton leaderboardButton;
+        private EndangerEdDemoButton startButton;
+        private EndangerEdDemoButton leaderboardButton;
         private Container profilePictureContainer;
         private Container guestProfilePicture;
         private Sprite loggedInProfilePicture;
@@ -116,18 +115,19 @@ namespace EndangerEdDemo.Game.Screen.Game
                         {
                             Anchor = Anchor.Centre,
                             Origin = Anchor.Centre,
-                            Children = new List<Drawable>
+                            Children = new Drawable[]
                             {
-                                new EndangerEdDemoButton("Start!")
+                                startButton = new EndangerEdDemoButton("Start!")
                                 {
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
                                     Y = -50f,
                                     Width = 100,
                                     Height = 50,
-                                    Action = () => screenStack.GameScreenStack.Push(new LoadingScreen())
+                                    Action = () => screenStack.GameScreenStack.Push(new LoadingScreen()),
+                                    Enabled = { BindTarget = sessionStore.IsLoggedIn }
                                 },
-                                new EndangerEdDemoButton("Leaderboard")
+                                leaderboardButton = new EndangerEdDemoButton("Leaderboard")
                                 {
                                     Anchor = Anchor.Centre,
                                     Origin = Anchor.Centre,
@@ -287,6 +287,10 @@ namespace EndangerEdDemo.Game.Screen.Game
             if (sessionStore.IsLoggedIn.Value)
             {
                 sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide2;
+            }
+            else
+            {
+                sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide1;
             }
         }
     }
