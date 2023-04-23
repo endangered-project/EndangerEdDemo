@@ -6,6 +6,6 @@
     <ProjectReference Include="..\EndangerEdDemo.Resources\EndangerEdDemo.Resources.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ppy.osu.Framework" Version="2023.314.0" />
+    <PackageReference Include="ppy.osu.Framework" Version="2023.418.0" />
   </ItemGroup>
 </Project>

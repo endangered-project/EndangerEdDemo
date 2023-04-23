@@ -1,7 +1,6 @@
 ﻿using EndangerEdDemo.Game.Graphics.Components;
 using osu.Framework.Allocation;
 using osu.Framework.Graphics;
-using osu.Framework.Graphics.Sprites;
 using osu.Framework.Graphics.Textures;
 using osu.Framework.Screens;
 using osuTK;
@@ -10,6 +9,8 @@ namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
 {
+    public ScreenStack MainScreenStack { get; set; }
+
     [BackgroundDependencyLoader]
     private void load(TextureStore store)
     {
@@ -24,7 +25,7 @@ public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
                 Width = 80,
                 Height = 50
             },
-            new EndangerEdDemoButton("Start")
+            new EndangerEdDemoButton("Skip")
             {
                 Anchor = Anchor.BottomRight,
                 Origin = Anchor.BottomRight,
@@ -36,15 +37,14 @@ public partial class EndangerEdDemoGameSessionScreenStack : ScreenStack
                 Width = 80,
                 Height = 50
             },
-            new Sprite
+            MainScreenStack = new ScreenStack
             {
                 Anchor = Anchor.BottomLeft,
                 Origin = Anchor.BottomLeft,
                 RelativeSizeAxes = Axes.Both,
                 Size = new Vector2(0.875f, 0.875f),
                 Margin = new MarginPadding(10),
-                Name = "Mock screen",
-                Texture = store.Get("background2.png")
+                Name = "Main screen"
             },
             new ScoreDisplay()
             {

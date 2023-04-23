@@ -68,5 +68,6 @@ public class SessionStore
     public void StartGame()
     {
         IsGameStarted.Value = true;
+        gameSessionStore.GameCount.Value++;
     }
 }

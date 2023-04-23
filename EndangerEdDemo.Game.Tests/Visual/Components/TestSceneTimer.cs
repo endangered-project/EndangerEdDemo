@@ -23,6 +23,7 @@ public partial class TestSceneTimer : EndangerEdDemoTestScene
     private SpriteText timeText;
     private SpriteText millisecondsText;
     private SpriteText rawTimeText;
+    private SpriteText countdownText;
 
     [BackgroundDependencyLoader]
     private void load()
@@ -71,6 +72,18 @@ public partial class TestSceneTimer : EndangerEdDemoTestScene
             Text = "Milliseconds : 0",
             Font = EndangerEdDemoFont.GetFont(size: 20, weight: EndangerEdDemoFont.FontWeight.Bold)
         });
+        Add(countdownText = new SpriteText()
+        {
+            Anchor = Anchor.TopLeft,
+            Origin = Anchor.TopLeft,
+            Margin = new MarginPadding
+            {
+                Top = 90
+            },
+            RelativeSizeAxes = Axes.Both,
+            Text = "Countdown : 0",
+            Font = EndangerEdDemoFont.GetFont(size: 20, weight: EndangerEdDemoFont.FontWeight.Bold)
+        });
     }
 
     [Test]
@@ -92,5 +105,36 @@ public partial class TestSceneTimer : EndangerEdDemoTestScene
         millisecondsText.Text = $"Milliseconds : {gameSessionStore.StopwatchClock.Elapsed.Milliseconds}";
         // show raw time
         rawTimeText.Text = $"Raw Time : {gameSessionStore.StopwatchClock}";
+        // Calculate countdown
+        string countdown = "";
+        // Time per game is in milliseconds
+        const int totalTime = GameSessionStore.TIME_PER_GAME / 1000;
+        int timeLeft = totalTime - (int)gameSessionStore.StopwatchClock.Elapsed.TotalSeconds;
+
+        // If time left is less than 0, set it to 0
+        if (timeLeft < 0)
+        {
+            timeLeft = 0;
+        }
+
+        // Calculate minutes left
+        int minutesLeft = timeLeft / 60;
+        // Calculate seconds left
+        int secondsLeft = timeLeft % 60;
+        // Add 0 to seconds if seconds or minutes is less than 10
+        countdown += $"{minutesLeft}:{(secondsLeft < 10 ? "0" : "")}{secondsLeft}";
+        countdownText.Text = $"Countdown : {countdown}";
+
+        // If time left is less than 10, change color to red
+        if (timeLeft < 10)
+        {
+            countdownText.Colour = Colour4.Red;
+        }
+        else
+        {
+            countdownText.Colour = Colour4.White;
+        }
+
+        countdownText.Text = $"Countdown : {countdown}";
     }
 }

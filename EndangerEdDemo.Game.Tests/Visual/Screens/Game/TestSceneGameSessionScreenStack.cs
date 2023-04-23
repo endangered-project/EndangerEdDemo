@@ -23,5 +23,6 @@ public partial class TestSceneGameSessionScreenStack : EndangerEdDemoTestScene
     public TestSceneGameSessionScreenStack()
     {
         Add(new EndangerEdDemoGameScreenStack());
+        AddStep("start game", () => gameSessionStore.GameCount.Value = gameSessionStore.GameCount.Value + 1);
     }
 }

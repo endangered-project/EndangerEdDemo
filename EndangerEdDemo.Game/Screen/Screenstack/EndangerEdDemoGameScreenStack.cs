@@ -7,7 +7,7 @@ namespace EndangerEdDemo.Game.Screen.Screenstack;
 
 public partial class EndangerEdDemoGameScreenStack : ScreenStack
 {
-    private EndangerEdDemoGameSessionScreenStack gameSessionScreenStack;
+    public EndangerEdDemoGameSessionScreenStack GameSessionScreenStack;
     private ScreenStack menuScreenStack;
 
     [Resolved]
@@ -29,7 +29,7 @@ public partial class EndangerEdDemoGameScreenStack : ScreenStack
                 Origin = Anchor.Centre,
                 RelativeSizeAxes = Axes.Both,
             },
-            gameSessionScreenStack = new EndangerEdDemoGameSessionScreenStack()
+            GameSessionScreenStack = new EndangerEdDemoGameSessionScreenStack()
             {
                 Anchor = Anchor.Centre,
                 Origin = Anchor.Centre,
@@ -47,12 +47,12 @@ public partial class EndangerEdDemoGameScreenStack : ScreenStack
             {
                 if (isGameStarted.NewValue)
                 {
-                    gameSessionScreenStack.Show();
+                    GameSessionScreenStack.Show();
                     menuScreenStack.Hide();
                 }
                 else
                 {
-                    gameSessionScreenStack.Hide();
+                    GameSessionScreenStack.Hide();
                     menuScreenStack.Show();
                 }
             });
