@@ -20,4 +20,7 @@
     <ProjectReference Include="..\EndangerEdDemo.Game\EndangerEdDemo.Game.csproj" />
     <ProjectReference Include="..\EndangerEdDemo.Resources\EndangerEdDemo.Resources.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ppy.osu.Framework.iOS" Version="2023.418.0" />
+  </ItemGroup>
 </Project>
