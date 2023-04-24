@@ -238,6 +238,18 @@ public partial class ResultScreen : EndangerEdDemoGameScreen
                     sessionStore.CurrentSlideNumber.Value = PresentationSlideNumber.Slide1;
                 }
             },
+            // Play again
+            new EndangerEdDemoButton("Play again")
+            {
+                Anchor = Anchor.BottomRight,
+                Origin = Anchor.BottomRight,
+                Margin = new MarginPadding()
+                {
+                    Bottom = 10,
+                    Right = 220,
+                },
+                Size = new Vector2(200, 50)
+            },
         };
     }
 }

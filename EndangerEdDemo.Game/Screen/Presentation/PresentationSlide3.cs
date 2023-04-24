@@ -46,7 +46,7 @@ public partial class PresentationSlide3 : EndangerEdDemoPresentationScreen
             },
             new SpriteText
             {
-                Text = "Now the game is currently contact with the game server to create a new game session.",
+                Text = "Now the game is currently in contact with the game server to create a new game session.",
                 Font = new FontUsage(size: 25),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,

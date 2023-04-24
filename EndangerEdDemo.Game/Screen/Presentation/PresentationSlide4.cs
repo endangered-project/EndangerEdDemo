@@ -48,7 +48,7 @@ public partial class PresentationSlide4 : EndangerEdDemoPresentationScreen
             },
             new SpriteText
             {
-                Text = "The game screen is the screen that is shown when the game is started.",
+                Text = "The game screen is the screen that is shown after the game is started.",
                 Font = new FontUsage(size: 25),
                 Anchor = Anchor.TopLeft,
                 Origin = Anchor.TopLeft,

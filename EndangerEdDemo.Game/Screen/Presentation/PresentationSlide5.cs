@@ -36,6 +36,30 @@ public partial class PresentationSlide5 : EndangerEdDemoPresentationScreen
                 Origin = Anchor.BottomRight,
                 Margin = new MarginPadding(10),
             },
+            new SpriteText
+            {
+                Text = "The result menu is the screen that is shown when the game is finished.",
+                Font = new FontUsage(size: 25),
+                Anchor = Anchor.TopLeft,
+                Origin = Anchor.TopLeft,
+                Margin = new MarginPadding()
+                {
+                    Top = 60,
+                    Left = 10,
+                }
+            },
+            new SpriteText
+            {
+                Text = "The result menu shows the score of the player and the player can choose to play again or go back to the main menu.",
+                Font = new FontUsage(size: 25),
+                Anchor = Anchor.TopLeft,
+                Origin = Anchor.TopLeft,
+                Margin = new MarginPadding()
+                {
+                    Top = 80,
+                    Left = 10,
+                }
+            },
             new FillFlowContainer
             {
                 Anchor = Anchor.BottomLeft,
