@@ -25,7 +25,6 @@ namespace EndangerEdDemo.Game.Screen.Game
         private Container profilePictureContainer;
         private Container guestProfilePicture;
         private Sprite loggedInProfilePicture;
-        private AudioVisualizer audioVisualizer;
         private Container knowledgeBaseContainer;
         private EndangerEdDemoButton loginButton;
         private EndangerEdDemoButton signUpButton;
@@ -181,15 +180,6 @@ namespace EndangerEdDemo.Game.Screen.Game
                                                     FillMode = FillMode.Fit,
                                                     Texture = textureStore.Get("fuji.png")
                                                 },
-                                                audioVisualizer = new AudioVisualizer
-                                                {
-                                                    Anchor = Anchor.Centre,
-                                                    Origin = Anchor.Centre,
-                                                    Width = 75,
-                                                    Height = 75,
-                                                    // TODO: Fix this after profile picture is circle
-                                                    Alpha = 0f
-                                                },
                                                 guestProfilePicture = new Container
                                                 {
                                                     Anchor = Anchor.Centre,
@@ -259,7 +249,6 @@ namespace EndangerEdDemo.Game.Screen.Game
         protected override void LoadComplete()
         {
             base.LoadComplete();
-            audioVisualizer.AddAmplitudeSource(audioPlayer.Track.Value);
             knowledgeBaseContainer.ScaleTo(new Vector2(1.2f), 500, Easing.OutSine).Then().ScaleTo(new Vector2(1f), 500, Easing.OutSine).Loop();
         }
 
